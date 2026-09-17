@@ -16,18 +16,25 @@ if r.status_code != 200:
     raise SystemExit(1)
 
 # --- 2. Подготовка тестовой картинки ---------------------------------------
-# Используем бабочку, если она есть; иначе генерируем шумовую
-butterfly = os.path.join('static', 'test_input_2.png')
-fallback  = os.path.join('static', 'test_input.png')
+# Ищем бабочку с любым из возможных расширений
+candidates = [
+    os.path.join('static', 'test_input_2.png'),
+    os.path.join('static', 'test_input_2.jpg'),
+    os.path.join('static', 'test_input_2.jpeg'),
+    os.path.join('static', 'test_input.png'),
+    os.path.join('static', 'test_input.jpg'),
+]
 
-if os.path.exists(butterfly):
-    test_path = butterfly
-    print('Using butterfly:', test_path)
-elif os.path.exists(fallback):
-    test_path = fallback
-    print('Using fallback image:', test_path)
-else:
-    test_path = fallback
+test_path = None
+for c in candidates:
+    if os.path.exists(c):
+        test_path = c
+        print('Using image:', test_path)
+        break
+
+# Если ничего не нашли — генерируем шумовой fallback
+if test_path is None:
+    test_path = os.path.join('static', 'test_input.png')
     arr = (np.random.rand(120, 120, 3) * 255).astype('uint8')
     Image.fromarray(arr).save(test_path)
     print('Generated random test image:', test_path)

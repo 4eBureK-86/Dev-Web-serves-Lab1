@@ -5,9 +5,17 @@ __pycache__/
 
 # сгенерированные картинки в static
 static/*.png
+static/*.jpg
+static/*.jpeg
+
+# но эти — оставляем
 !static/test_input.png
+!static/test_input.jpg
 !static/test_input_2.png
+!static/test_input_2.jpg
 !static/.gitkeep
+
+# эти генерируются при запуске — игнорируем
 static/original_result.png
 static/noisy_result.png
 static/hist_original.png
