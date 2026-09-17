@@ -1,18 +1,51 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block title %}Зашумление изображения{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Зашумление изображения</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        img { max-width: 100%; }
+    </style>
+</head>
+<body>
 <div class="container">
     <h1>Зашумление изображения (Вариант 12)</h1>
     <p>Загрузите изображение и укажите уровень шума от 0.0 до 1.0.
-       Будут показаны исходное и зашумлённое изображения, а также
-       графики распределения цветов.</p>
+       Будут показаны исходное и зашумлённое изображения,
+       а также графики распределения цветов.</p>
 
-    {{ wtf.quick_form(form, method='post',
-                      enctype="multipart/form-data",
-                      action=url_for('net')) }}
+    <form method="post" enctype="multipart/form-data"
+          action="{{ url_for('net') }}" class="mb-4">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.upload.label }}
+            {{ form.upload(class="form-control-file") }}
+            {% for err in form.upload.errors %}
+                <div class="text-danger">{{ err }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.noise_level.label }}
+            {{ form.noise_level(class="form-control", step="0.1",
+                                min="0", max="1") }}
+            {% for err in form.noise_level.errors %}
+                <div class="text-danger">{{ err }}</div>
+            {% endfor %}
+        </div>
+
+        {% if form.recaptcha is defined %}
+            <div class="form-group">
+                {{ form.recaptcha }}
+            </div>
+        {% endif %}
+
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
 
     {% if error %}
         <div class="alert alert-danger">{{ error }}</div>
@@ -24,17 +57,18 @@
     <div class="row">
         <div class="col-md-6">
             <h3>Исходное изображение</h3>
-            <img src="{{ original_image }}" class="img-rounded" width="320">
+            <img src="{{ original_image }}" class="img-rounded">
             <h4>Распределение цветов</h4>
-            <img src="{{ hist_original }}" class="img-rounded" width="450">
+            <img src="{{ hist_original }}" class="img-rounded">
         </div>
         <div class="col-md-6">
             <h3>Зашумлённое изображение</h3>
-            <img src="{{ noisy_image }}" class="img-rounded" width="320">
+            <img src="{{ noisy_image }}" class="img-rounded">
             <h4>Распределение цветов</h4>
-            <img src="{{ hist_noisy }}" class="img-rounded" width="450">
+            <img src="{{ hist_noisy }}" class="img-rounded">
         </div>
     </div>
     {% endif %}
 </div>
-{% endblock %}
+</body>
+</html>

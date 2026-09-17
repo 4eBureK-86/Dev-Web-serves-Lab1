@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 from flask import Flask, render_template, url_for, request, Response, jsonify
-from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from flask_wtf.recaptcha import RecaptchaField
@@ -36,8 +35,6 @@ if USE_CAPTCHA:
     app.config['RECAPTCHA_PUBLIC_KEY'] = RECAPTCHA_PUBLIC
     app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE
     app.config['RECAPTCHA_USE_SSL'] = False
-
-bootstrap = Bootstrap(app)
 
 
 # ----------------------------------------------------------------------------
