@@ -3,11 +3,10 @@ python:
   - "3.8"
 
 before_install:
-  - chmod +x ./flaskapp/st.sh
+  - chmod +x ./st.sh
 
 install:
-  - pip install -r flaskapp/requirements.txt
+  - pip install -r requirements.txt
 
 script:
-  - cd flaskapp
   - ./st.sh
