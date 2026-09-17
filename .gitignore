@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+static/*.png
+!static/test_input.png
+!static/test_input_2.png
+!static/.gitkeep
