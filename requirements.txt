@@ -1,0 +1,9 @@
+Flask==1.1.2
+Flask-Bootstrap==3.3.7.1
+Flask-WTF==0.14.3
+WTForms==2.3.3
+Pillow
+numpy
+matplotlib
+requests
+gunicorn

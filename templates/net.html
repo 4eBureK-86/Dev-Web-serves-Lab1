@@ -1,0 +1,40 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Зашумление изображения{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Зашумление изображения (Вариант 12)</h1>
+    <p>Загрузите изображение и укажите уровень шума от 0.0 до 1.0.
+       Будут показаны исходное и зашумлённое изображения, а также
+       графики распределения цветов.</p>
+
+    {{ wtf.quick_form(form, method='post',
+                      enctype="multipart/form-data",
+                      action=url_for('net')) }}
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    {% if original_image %}
+    <hr>
+    <h2>Результат (уровень шума: {{ noise_level }})</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Исходное изображение</h3>
+            <img src="{{ original_image }}" class="img-rounded" width="320">
+            <h4>Распределение цветов</h4>
+            <img src="{{ hist_original }}" class="img-rounded" width="450">
+        </div>
+        <div class="col-md-6">
+            <h3>Зашумлённое изображение</h3>
+            <img src="{{ noisy_image }}" class="img-rounded" width="320">
+            <h4>Распределение цветов</h4>
+            <img src="{{ hist_noisy }}" class="img-rounded" width="450">
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
