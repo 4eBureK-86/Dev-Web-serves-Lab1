@@ -35,6 +35,8 @@ jobs:
       with:
         name: noisy-results
         path: |
-          static/noisy_*.png
-          static/hist_*.png
+          static/original_result.png
+          static/noisy_result.png
+          static/hist_original.png
+          static/hist_noisy.png
         if-no-files-found: warn

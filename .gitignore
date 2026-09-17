@@ -1,7 +1,27 @@
+# Python
 venv/
 __pycache__/
 *.pyc
+
+# сгенерированные картинки в static
 static/*.png
 !static/test_input.png
 !static/test_input_2.png
 !static/.gitkeep
+static/original_result.png
+static/noisy_result.png
+static/hist_original.png
+static/hist_noisy.png
+
+# логи
+*.log
+server.log
+gunicorn.log
+
+# IDE
+.idea/
+.vscode/
+
+# системные
+Thumbs.db
+.DS_Store
