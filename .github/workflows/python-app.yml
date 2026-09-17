@@ -13,10 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python 3.8
+    - name: Set up Python 3.11
       uses: actions/setup-python@v5
       with:
-        python-version: "3.8"
+        python-version: "3.11"
 
     - name: Install dependencies
       run: |
@@ -27,5 +27,14 @@ jobs:
       run: chmod +x ./st.sh
 
     - name: Run application and test
-      run: |
-        ./st.sh
+      run: ./st.sh
+
+    - name: Upload generated images as artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: noisy-results
+        path: |
+          static/noisy_*.png
+          static/hist_*.png
+        if-no-files-found: warn
